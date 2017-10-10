@@ -1,0 +1,16 @@
+@AbapCatalog.sqlViewName 'yaa_av_cds_exp2'
+@AbapCatalog.compiler.compareFilter true
+@AccessControl.authorizationCheck #CHECK
+@EndUserText.label 'CDS Exapmple 2'
+@OData.publish true
+define view yaa_cds_exp2 as select from scarr {
+    key scarr.carrid,
+        scarr.currcode,
+        scarr.url
+} 
+  
+  
+  
+  
+  
+ 

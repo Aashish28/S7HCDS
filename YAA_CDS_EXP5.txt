@@ -1,0 +1,63 @@
+@AbapCatalog.sqlViewName: 'Yaa_AV_Cds_Exp5'
+@AbapCatalog.compiler.compareFilter: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'CDS association'
+define view Yaa_Cds_Exp5
+(
+ _vbap_vbak,
+ OrderNumber,
+ LineItem,
+ Ordertype,
+ CreationDate,
+ Customer,
+ CustomerName,
+ Material,
+ MaterialText,
+ NetPrice,
+ Currency
+ )
+with parameters
+    p_so : vbeln_va
+ as select from
+ vbak
+ association [1..*] to vbap as _vbap_vbak on
+ $projection.vbeln = _vbap_vbak.vbeln
+ association [1..1] to kna1 as _kna1_vbak on
+ $projection.kunnr = _kna1_vbak.kunnr
+ {
+ _vbap_vbak,
+ key vbeln,
+ key _vbap_vbak.posnr,
+   case vbtyp 
+         when 'C' then 'Contract'
+         else vbtyp   
+       end as vbtyp,
+   erdat,
+   kunnr,
+   _kna1_vbak.name1,
+ _vbap_vbak.matnr,
+ _vbap_vbak.arktx,
+ @Semantics.amount.currencyCode: '_vbap_vbak.waerk'
+ _vbap_vbak.netpr,
+ _vbap_vbak.waerk
+ }
+ where vbeln = :p_so
+ 
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 

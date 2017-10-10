@@ -1,0 +1,16 @@
+@AbapCatalog.sqlViewName: 'YAA_AV_CDS_EXP3'
+@AbapCatalog.compiler.compareFilter: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'Training CDS View'
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@OData.publish: true
+define view YAA_CDS_EXP3 as select from mara as M
+    inner join marc as c on M.matnr = c.matnr
+    {
+    key M.matnr as matnr,
+        werks as werks
+} 
+  
+  
+  
+ 

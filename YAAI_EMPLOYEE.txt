@@ -1,0 +1,36 @@
+@AbapCatalog.sqlViewName 'Yaa_av_empmd'
+@AbapCatalog.compiler.compareFilter true
+@AccessControl.authorizationCheck #CHECK
+@EndUserText.label 'Employee List'
+@ObjectModel.compositionRoot true
+@ObjectModel.transactionalProcessingEnabled true
+@ObjectModel.modelCategory #BUSINESS_OBJECT
+@ObjectModel.writeActivePersistence 'YAA_EMPLOYEE'
+@ObjectModel.representativeKey 'EMPID'
+
+@ObjectModel.createEnabled true
+@ObjectModel.deleteEnabled  true
+@ObjectModel.updateEnabled true
+
+
+define view Yaai_Employee 
+    as select from yaa_employee as _emp 
+    {
+      key _emp.empid, 
+          _emp.fname, 
+          _emp.lname, 
+          _emp.email, 
+          _emp.gndr, 
+          _emp.dept, 
+          _emp.doj, 
+          _emp.dsgntn, 
+          _emp.slry, 
+          _emp.curcy
+} 
+  
+  
+  
+  
+  
+  
+ 

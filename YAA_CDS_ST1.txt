@@ -1,0 +1,177 @@
+@AbapCatalog.sqlViewName 'YAA_AV_CDS_ST1'
+
+@AbapCatalog.compiler.compareFilter true
+
+@AccessControl.authorizationCheck #CHECK
+
+@EndUserText.label 'Products'
+
+@OData.publish true
+
+@ObjectModel {
+
+  createEnabled true,
+
+  updateEnabled true,
+
+  deleteEnabled true
+
+}
+
+@UI.headerInfo{
+    typeName 'Product',
+
+    typeNamePlural 'Products',
+
+    imageUrl {value 'PictureUrl'},
+
+    title {value 'Name'},
+
+    description {value 'Description'}
+
+}
+
+define view YAA_CDS_ST1
+  as select from sepm_iproduct as Products
+   association [1..] to Yaa_Cds_Soi    as _soItems   on $projection.productuuid  = _soItems.ProductID
+   association [1..1] to sepm_iproductt    as _ProductT on  $projection.productuuid = _ProductT.productuuid
+     and _ProductT.language = 'E'
+   association [1..1] to sepm_ibupa        as _Supplier on  $projection.supplieruuid = _Supplier.businesspartneruuid
+{
+
+key Products.productuuid,
+
+      @UI {
+        identification {position 10, importance #HIGH},
+        lineItem {position 10, importance #HIGH},
+        selectionField {position 10}
+      }
+
+      Products.product                                                      as ProductID,
+         @UI {
+
+        identification {position 40, importance #HIGH}
+
+      }
+      Products.producttype                                                  as TypeCode,
+
+      @UI {
+            identification {position 30, importance #HIGH},
+        lineItem {position 30, importance #HIGH}
+
+      }
+
+      Products.productcategory                                              as Category,
+
+      @UI {
+         identification {position 20, importance #HIGH, label 'Product Name'},
+        lineItem {position 20, importance #HIGH, label 'Product Name'},
+        selectionField {position 20}       
+        
+      }
+
+      _ProductT.productname                                                  as Name,
+
+      'EN'                                                                  as NameLanguage,
+
+      @UI {
+         identification {position 50, importance #HIGH, label 'Prod.Descrip.'},
+        lineItem {position 40, importance #HIGH, label 'Prod.Descrip.'}
+
+      }
+
+      _ProductT.productdescription                                          as Description,
+
+      'EN'                                                                  as DescriptionLanguage,
+
+      _Supplier.businesspartner                                              as SupplierID,
+    
+      _Supplier.companyname                                                  as SupplierName,
+        @UI {
+
+        dataPoint { title 'TaxCode' }
+
+      }
+      Products.productvalueaddedtax                                          as TaxTarifCode,
+
+      Products.productbaseunit                                              as MeasureUnit,
+        @UI {
+
+        fieldGroup {qualifier 'FGTechData', groupLabel 'Technical Data', position 10, importance #MEDIUM}
+
+      }
+      Products.weight                                                        as WeightMeasure,
+
+      Products.weightunit                                                    as WeightUnit,
+
+      Products.currency                                                      as CurrencyCode,
+
+      @UI {
+
+        identification {position 60, importance #HIGH},
+
+        lineItem {position 50, importance #HIGH},
+
+        dataPoint { title 'Price' }
+
+      }
+      Products.price                                                        as Price,
+    @UI {
+
+        fieldGroup {qualifier 'FGTechData', groupLabel 'Technical Data', position 20, importance #MEDIUM}
+
+      }
+      Products.width                                                        as Width,
+       @UI {
+
+        fieldGroup {qualifier 'FGTechData', groupLabel 'Technical Data', position 40, importance #MEDIUM}
+
+      }
+      Products.depth                                                        as Depth,
+    @UI {
+
+        fieldGroup {qualifier 'FGTechData', groupLabel 'Technical Data', position 30, importance #MEDIUM}
+
+      }
+      Products.height                                                        as Height,
+
+      Products.dimensionunit                                                as DimUnit,
+        @UI {
+
+        statusInfo {position 10, importance #MEDIUM}
+
+      }
+      Products.creationdatetime                                              as CreatedAt,
+         @UI {
+
+        statusInfo {position 20, importance #MEDIUM}
+
+      }
+      Products.lastchangeddatetime                                          as ChangedAt,
+
+      concat(concat('webappimages',Products.product),'.jpg')              as PictureUrl,
+
+      Products.supplieruuid,
+
+      _soItems,
+      _ProductT,
+      _Supplier      
+      
+} 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 

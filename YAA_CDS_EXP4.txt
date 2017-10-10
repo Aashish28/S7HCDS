@@ -1,0 +1,43 @@
+@AbapCatalog.sqlViewName: 'yaa_av_cds_exp4'
+@AbapCatalog.compiler.compareFilter: true
+@AccessControl.authorizationCheck: #CHECK
+@Metadata.allowExtensions: true
+@OData.publish: true
+
+@UI.headerInfo:{
+
+    typeName: 'Airlines',
+
+    typeNamePlural: 'Airlines Information',
+
+    title: {value: 'carrid'},
+    
+    description: {value: 'url'}
+
+}
+
+define view yaa_cds_exp4 as select from scarr {
+    key scarr.carrid as carrid,
+            
+  @UI: {
+        lineItem: [{position: 10, importance: #HIGH}]
+      }
+   currcode,
+  @UI: {
+        lineItem: [{position: 20, importance: #HIGH}]
+      }
+    url
+} 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 

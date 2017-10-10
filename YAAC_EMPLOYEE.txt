@@ -1,0 +1,141 @@
+@AbapCatalog.sqlViewName: 'Yaa_av_emp'
+@AbapCatalog.compiler.compareFilter: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'Consumption view of employee'
+@VDM.viewType: #CONSUMPTION
+@ObjectModel.transactionalProcessingDelegated: true
+@ObjectModel.createEnabled: true
+@ObjectModel.deleteEnabled: true
+@ObjectModel.updateEnabled: true
+@ObjectModel.semanticKey: 'EMPID'
+@ObjectModel.representativeKey: 'EMPID'
+
+@Search.searchable: true
+@OData.publish: true
+
+@UI.headerInfo:{
+  typeName:       'Employee',
+  typeNamePlural: 'Employee',
+  title: { value: 'empid' },
+  description : {value: 'fname'}
+}
+
+define view Yaac_Employee as select from Yaai_Employee 
+    association [0..*] to Yaai_Emoployee_Ed as _emp_ed on _emp_ed.empid = $projection.empid
+    {
+
+        @UI.lineItem:  [{position : 10},      
+            { type : #FOR_ACTION, position : 1, dataAction: 'BOPF:UPLOAD_PHOTO', label: 'Upload photo' }]
+        @UI.identification: [{ position: 10 ,importance: #HIGH}]
+        @UI.selectionField: [ { position: 10} ]
+        @EndUserText.label: 'Employee Id'
+        @Search.defaultSearchElement: true
+        @Search.fuzzinessThreshold: 0.9
+        @UI.fieldGroup:
+        {
+        qualifier: 'general',
+        position: 10
+        }
+key Yaai_Employee.empid, 
+    
+        @UI.lineItem: [ {position : 20}  ]
+        @UI.identification: [{ position: 20,importance: #HIGH}]
+        @UI.selectionField: [ { position: 20} ]
+        @EndUserText.label:'First Name'
+        @UI.fieldGroup:
+        {
+        qualifier: 'general',
+        position: 20
+        }
+    Yaai_Employee.fname, 
+
+        @UI.lineItem: [ {position : 30}  ]
+        @UI.identification: [{ position: 30,importance: #HIGH}]
+        @UI.selectionField: [ { position: 30} ]
+        @EndUserText.label:'Last Name'
+        @UI.fieldGroup:
+        {
+        qualifier: 'general',
+        position: 30
+        }
+    Yaai_Employee.lname, 
+
+        @UI.lineItem: [ {position : 40}  ]
+        @UI.identification: [{ position: 40,importance: #HIGH}]
+        @EndUserText.label:'Email'
+        @UI.fieldGroup:
+        {
+        qualifier: 'general',
+        position: 40
+        }
+    Yaai_Employee.email, 
+
+        @UI.lineItem: [ {position : 50}  ]
+        @UI.identification: [{ position: 50,importance: #HIGH}]
+        @UI.selectionField: [ { position: 40} ]
+        @EndUserText.label:'Gender'
+        @UI.fieldGroup:
+        {
+        qualifier: 'general',
+        position: 50
+        }
+    Yaai_Employee.gndr, 
+    
+     @UI.lineItem: [ {position : 60}  ]
+        @UI.identification: [{ position: 60,importance: #HIGH}]
+     //   @UI.selectionField: [ { position: 50} ]
+        @EndUserText.label:'Department'
+        @UI.fieldGroup:
+        {
+        qualifier: 'official',
+        position: 10
+        }
+    Yaai_Employee.dept, 
+
+     @UI.lineItem: [ {position : 70}  ]
+        @UI.identification: [{ position: 70,importance: #HIGH}]
+        @EndUserText.label:'Date of joining'
+        @UI.fieldGroup:
+        {
+        qualifier: 'official',
+        position: 20
+        }
+    Yaai_Employee.doj, 
+        @UI.identification: [{ position: 80,importance: #HIGH}]
+        @EndUserText.label:'Designation'
+        @UI.fieldGroup:
+        {
+        qualifier: 'official',
+        position: 30
+        }
+    Yaai_Employee.dsgntn, 
+
+        @EndUserText.label:'Monthly salary'
+        @UI.identification: [{ position: 90,importance: #HIGH}]
+        @UI.fieldGroup:
+        {
+        qualifier: 'official',
+        position: 30
+        }
+    Yaai_Employee.slry,
+        @EndUserText.label:'Currency'
+        @UI.identification: [{ position: 100,importance: #HIGH}]
+        @UI.fieldGroup:
+        {
+        qualifier: 'official',
+        position: 40
+        } 
+    Yaai_Employee.curcy,
+    
+    /* Associations */
+    _emp_ed
+} 
+  
+  
+  
+  
+  
+  
+  
+  
+ 

@@ -1,0 +1,35 @@
+@AbapCatalog.sqlViewName: 'Yaa_av_Chart1'
+@AbapCatalog.compiler.compareFilter: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'chart 1 column'
+
+@OData.publish: true
+
+@UI.chart :{
+chartType: #COLUMN,
+dimensions:   'region_desc',
+measures:   ['actualSales','salesTarget']
+} 
+@UI.chart.measureAttributes.measure: 'Actual_sales'
+@UI.chart.measureAttributes.role: #AXIS_1
+@UI.chart.measureAttributes.asDataPoint: true
+
+
+define view Yaa_Cds_Chart1 as select distinct from zdt_sls_assgnmnt as ml
+left outer join Zv_Sm_Ml2 as ml2 on ml2.regkey = ml.regkey
+left outer join zdt_reg as reg on reg.regkey = ml.regkey
+left outer join zdt_loc as loc on loc.lockey = reg.lockey
+{ 
+   key  ml.regkey,
+    reg.rdes as region_desc,
+   loc.locationtext,
+   @UI.dataPoint.criticality: 'Actual_sales'
+   @DefaultAggregation: #SUM
+    ml2.Actual_sales,
+    @DefaultAggregation: #SUM
+    ml2.sales_target 
+    
+    } 
+  
+  
+ 

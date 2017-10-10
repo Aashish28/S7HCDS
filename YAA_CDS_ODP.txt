@@ -1,0 +1,16 @@
+@AbapCatalog.sqlViewName: 'Yaa_AV_CdsOdp'
+@AbapCatalog.compiler.compareFilter: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'ODP extraction'
+@VDM.viewType: #BASIC
+@Analytics.dataExtraction.enabled: true
+define view Yaa_Cds_Odp as select from scarr
+{
+   key scarr.carrid as Airline, 
+   @Semantics.text: true
+   @EndUserText.label: 'Airline Text'
+   scarr.carrname as airlinensame    
+} 
+  
+  
+ 

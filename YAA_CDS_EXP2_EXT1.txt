@@ -1,0 +1,7 @@
+@AbapCatalog.sqlViewAppendName: 'yaa_cdsexp2ext1'
+@EndUserText.label: 'Extension of Yaa_Cds_Exp2'
+extend view yaa_cds_exp2 with Yaa_Cds_Exp2_Ext1 {
+    1 + 1 as two
+} 
+  
+ 

@@ -1,0 +1,80 @@
+@AbapCatalog.sqlViewName: 'YAA_AV_CDS_SOI'
+
+@AbapCatalog.compiler.compareFilter: true
+
+@AccessControl.authorizationCheck: #CHECK
+
+@EndUserText.label: 'Sales Order Line Items'
+
+@UI.headerInfo:{
+
+    typeName: 'Sale Order',
+
+    typeNamePlural: 'Sale Orders',
+
+    title: {value: 'SalesOrderID'},
+
+    description: {value: 'ItemPosition'}
+
+}
+
+define view Yaa_Cds_Soi
+
+  as select from sepm_isoi as SOLItems
+  association [1..1] to tcurt as _currText
+  on $projection.CurrencyCode = _currText.waers
+  and _currText.spras = 'E'
+{
+
+  key SOLItems.salesorderitemuuid,
+
+      SOLItems.salesorderuuid                    as SalesOrderID,
+
+      @UI: {
+
+        lineItem: {position: 10, importance: #HIGH}
+
+      }
+
+      SOLItems.salesorderitem                    as ItemPosition,
+
+      SOLItems.productuuid                        as ProductID,
+
+      SOLItems.shorttextgroupuuid                as NoteID,
+
+      SOLItems.transactioncurrency                as CurrencyCode,
+
+      @UI: {
+
+        lineItem: {position: 40, importance: #HIGH}
+
+      }
+
+      SOLItems.grossamountintransaccurrency      as GrossAmount,
+
+      @UI: {
+
+        lineItem: {position: 30, importance: #HIGH}
+
+      }
+
+      SOLItems.netamountintransactioncurrency    as NetAmount,
+
+      @UI: {
+
+        lineItem: {position: 20, importance: #HIGH}
+
+      }
+
+      SOLItems.taxamountintransactioncurrency    as TaxAmount,
+
+      SOLItems.productavailabilitystatus          as StatusAvailability,
+
+      SOLItems.opportunityitem                    as OpportunityItem,
+      _currText
+} 
+  
+  
+  
+  
+ 

@@ -1,0 +1,59 @@
+@AbapCatalog.sqlViewName: 'yaa_apv_employee'
+@AbapCatalog.compiler.compareFilter: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'Composite cds employee WD'
+
+@VDM.private: true
+@VDM.viewType: #COMPOSITE
+define view Yaap_Employee_Wd as select from Yaai_Employee_Ac as _active_doc
+   left outer join Yaai_Employee_Draft as _draf_doc on _active_doc.empid = _draf_doc.empid 
+ {
+     key cast ( hextobin('00000000000000000000000000000000') as sysuuid_x preserving type ) as DraftUUID,
+     key _active_doc.empid, 
+         _active_doc.fname, 
+         _active_doc.lname, 
+         _active_doc.email, 
+         _active_doc.gndr, 
+         _active_doc.dept, 
+         _active_doc.doj, 
+         _active_doc.dsgntn, 
+         _active_doc.slry, 
+         _active_doc.curcy,
+         _draf_doc.draftuuid                                                                as DraftAdministrativeDataUUID,
+          cast( 'X' as sdraft_is_active preserving type )                                    as IsActiveEntity,
+          cast( ' ' as sdraft_has_active preserving type )                                   as HasActiveEntity,
+          cast(
+          case
+          when _draf_doc.draftuuid is null then ' '
+          else 'X'
+          end  as sdraft_has_draft preserving type )                                         as HasDraftEntity
+            
+}
+
+union all
+
+select from  Yaai_Employee_Draft       as _draf_doc
+  inner join I_DraftAdministrativeData as I_DraftAdministrativeData on I_DraftAdministrativeData.DraftUUID = _draf_doc.draftuuid
+{
+  key _draf_doc.draftuuid, 
+      _draf_doc.empid, 
+      _draf_doc.fname, 
+      _draf_doc.lname, 
+      _draf_doc.email, 
+      _draf_doc.gndr, 
+      _draf_doc.dept, 
+      _draf_doc.doj, 
+      _draf_doc.dsgntn, 
+      _draf_doc.slry, 
+      _draf_doc.curcy,  
+      _draf_doc.draftuuid                              as DraftAdministrativeDataUUID,
+      cast( ' '  as sdraft_is_active preserving type ) as IsActiveEntity,
+      _draf_doc.hasactiveentity                        as HasActiveEntity,
+      cast( ' '  as sdraft_has_draft preserving type ) as HasDraftEntity
+}
+where
+     I_DraftAdministrativeData.CreatedByUser   = $session.user
+  or I_DraftAdministrativeData.InProcessByUser = $session.user  
+  
+  
+ 

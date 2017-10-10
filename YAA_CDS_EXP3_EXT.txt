@@ -1,0 +1,5 @@
+@AbapCatalog.sqlViewAppendName: 'Yaa_CdsExp3Ext'
+@EndUserText.label: 'CDS view YAA_CDS_EXP3 extension'
+extend view YAA_CDS_EXP3 with Yaa_Cds_Exp3_Ext {
+    1 + 2 as three
+}

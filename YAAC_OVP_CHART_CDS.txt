@@ -1,0 +1,62 @@
+@AbapCatalog.sqlViewName: 'Yaac_acv_Cds'
+@AbapCatalog.compiler.compareFilter: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'OVP charts'
+
+@OData.publish: true
+
+@Search.searchable: true
+
+@UI.headerInfo:{
+
+ typeName: 'OVP Employee Overview',
+  typeNamePlural: 'Ovp Employee Overview', 
+   title: { label : 'Employee IDa',
+            value : 'id'},
+   description: { label : 'Employee',
+                    value: 'name'}
+}
+
+@UI.chart:[{
+    qualifier: 'chart1',
+    title:'Order Net Amount',
+    chartType: #COLUMN,
+    dimensions: 'dept',
+    measures: ['slry'],
+    measureAttributes: [{measure: 'slry', role: #AXIS_1 , asDataPoint: true}]
+}]
+ 
+define view Yaac_Ovp_Chart_Cds as select from Yaai_Employee_Ac {
+
+@UI.selectionField.position: 10
+@UI.fieldGroup: {groupLabel: 'gplist', label: 'EMPID', position: '10', qualifier: 'elist'}
+@Consumption.semanticObject: 'Action'
+@UI.identification: {type: #FOR_INTENT_BASED_NAVIGATION, semanticObjectAction: 'zmasterlist', label: 'Nav Sample', position: '10'}
+key Yaai_Employee_Ac.empid as empid,
+
+@Search.defaultSearchElement: true 
+@UI.fieldGroup: {groupLabel: 'gplist', label: 'EMPID', position: '20', qualifier: 'elist'}
+@UI.selectionField.position: 20 
+ @UI.lineItem: { importance: #HIGH, label: 'Name',  qualifier:'ordOverView1', position: 20} 
+@EndUserText.label: 'Name'
+Yaai_Employee_Ac.fname as Name,  
+
+@EndUserText.label: 'Department'
+Yaai_Employee_Ac.dept,
+  
+@DefaultAggregation: #SUM
+Yaai_Employee_Ac.slry,
+
+@UI.dataPoint:{title: 'Order Target Value', criticalityCalculation: {
+        improvementDirection: #MAXIMIZE,
+        toleranceRangeLowValue: 100,
+        deviationRangeLowValue: 200} }
+    10000.00 as myTarget,
+
+@EndUserText.label: 'Currency'
+@UI.fieldGroup: {groupLabel: 'gpcurr', label: 'Curr', position: '10', qualifier: 'empContact'}
+Yaai_Employee_Ac.curcy
+} 
+  
+  
+ 

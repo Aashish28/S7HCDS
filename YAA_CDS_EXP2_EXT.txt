@@ -1,0 +1,8 @@
+@AbapCatalog.sqlViewAppendName: 'yaa_cdsexp2ext'
+@EndUserText.label: 'Extension of CDS view'
+extend view yaa_cds_exp2 with Yaa_Cds_Exp2_Ext {
+      scarr.carrname
+} 
+  
+  
+ 

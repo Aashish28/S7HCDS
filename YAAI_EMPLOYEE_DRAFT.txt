@@ -1,0 +1,28 @@
+@AbapCatalog.sqlViewName: 'yaa_adv_emp'
+@AbapCatalog.compiler.compareFilter: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'Basic cds employee for draft'
+@ClientDependent: true
+@VDM.viewType: #BASIC
+
+@ObjectModel.compositionRoot: true
+@ObjectModel.semanticKey:  ['draftuuid']
+
+define view Yaai_Employee_Draft as select from yaa_employee_wd {
+  key  yaa_employee_wd.draftuuid, 
+       yaa_employee_wd.hasactiveentity, 
+       yaa_employee_wd.empid, 
+       yaa_employee_wd.fname, 
+       yaa_employee_wd.lname, 
+       yaa_employee_wd.email, 
+       yaa_employee_wd.gndr, 
+       yaa_employee_wd.dept, 
+       yaa_employee_wd.doj, 
+       yaa_employee_wd.dsgntn, 
+       yaa_employee_wd.slry, 
+       yaa_employee_wd.curcy
+} 
+  
+  
+  
+ 

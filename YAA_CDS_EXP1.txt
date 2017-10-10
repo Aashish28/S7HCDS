@@ -1,0 +1,37 @@
+@AbapCatalog.sqlViewName: 'YAA_AV_CDS_EXP1'
+@AbapCatalog.compiler.compareFilter: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'CDS Exapmple'
+define view Yaa_Cds_Exp1 as select from snwd_so_i as soi 
+   left outer join snwd_pd as pd on soi.product_guid = pd.node_key{
+//   key soi.node_key as so_itm_guid,
+       @Semantics.currencyCode soi.currency_code,
+       @Semantics.amount.currencyCode: 'currency_code'
+       sum(soi.gross_amount) as sum_gross_amount,
+       substring(pd.product_id,4,4) as sub_pd_id,
+       case pd.type_code 
+         when 'PR' then 'PRODUCT'
+         when 'AD' then 'ADVERTISMENT'
+         else pd.type_code   
+       end as long_ty_code,
+       pd.category       
+}
+where pd.category <> 'Software'
+and pd.category <> 'Computer system accessories'
+group by
+//    soi.node_key,
+    soi.currency_code,
+    pd.product_id,
+    pd.type_code,
+    pd.category
+
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+ 

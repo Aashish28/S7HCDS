@@ -1,0 +1,36 @@
+@AbapCatalog.sqlViewName: 'YAA_AAV_EMPLOYEE'
+@AbapCatalog.compiler.compareFilter: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'Active employee'
+@VDM.viewType: #BASIC
+
+@ObjectModel.compositionRoot: true
+@ObjectModel.semanticKey:  [ 'EMPID' ]
+@ObjectModel.usageType.serviceQuality: #A
+@ObjectModel.usageType.sizeCategory: #M  
+@ObjectModel.usageType.dataClass: #TRANSACTIONAL
+
+define view Yaai_Employee_Ac as select from yaa_employee {
+    key yaa_employee.empid, 
+        yaa_employee.fname, 
+        yaa_employee.lname, 
+        yaa_employee.email, 
+        yaa_employee.gndr, 
+        yaa_employee.dept, 
+        yaa_employee.doj, 
+        yaa_employee.dsgntn, 
+        yaa_employee.slry, 
+        yaa_employee.curcy       
+}
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 

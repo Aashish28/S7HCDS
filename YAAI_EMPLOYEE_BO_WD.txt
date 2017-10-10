@@ -1,0 +1,51 @@
+@AbapCatalog.sqlViewName: 'Yaa_abdv_emp'
+@AbapCatalog.compiler.compareFilter: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'Employee cd with bo draft'
+@ClientDependent: true
+@VDM.viewType: #COMPOSITE
+
+@ObjectModel.compositionRoot: true
+@ObjectModel.modelCategory: #BUSINESS_OBJECT
+@ObjectModel.transactionalProcessingEnabled: true
+@ObjectModel.createEnabled: true
+@ObjectModel.updateEnabled: true
+@ObjectModel.deleteEnabled: true
+@ObjectModel.writeDraftPersistence: 'YAA_EMPLOYEE_WD'
+@ObjectModel.semanticKey: ['EMPID']
+@ObjectModel.usageType.serviceQuality: #C
+@ObjectModel.usageType.sizeCategory: #L
+@ObjectModel.usageType.dataClass: #TRANSACTIONAL
+
+define view Yaai_Employee_Bo_Wd as select from Yaap_Employee_Wd as document
+  association [0..1] to yaai_employee_bo_wd           as _SiblingEntity           on  _SiblingEntity.empid   = $projection.empid
+                                                                                and _SiblingEntity.isactiveentity <> $projection.IsActiveEntity
+
+  association [0..1] to I_DraftAdministrativeData as _DraftAdministrativeData on  _DraftAdministrativeData.DraftUUID = $projection.DraftAdministrativeDataUUID
+{
+   key document.DraftUUID, 
+   key document.empid, 
+      document.fname, 
+      document.lname, 
+      document.email, 
+      document.gndr, 
+      document.dept, 
+      document.doj, 
+      document.dsgntn, 
+      document.slry, 
+      document.curcy, 
+      @Consumption.hidden: true
+      document.DraftAdministrativeDataUUID, 
+      @ObjectModel.readOnly: true
+      document.IsActiveEntity, 
+      @ObjectModel.readOnly: true
+      document.HasActiveEntity, 
+      @ObjectModel.readOnly: true
+      document.HasDraftEntity,
+      _DraftAdministrativeData,
+      _SiblingEntity
+} 
+  
+  
+  
+ 

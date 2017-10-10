@@ -1,0 +1,8 @@
+@AbapCatalog.sqlViewAppendName: 'YAA_SEPM_ISOIE'
+@EndUserText.label: 'Extension of SEPM_I_SalesOrderItem_E'
+extend view SEPM_I_SalesOrderItem_E with Yaa_Sepm_I_Salesorderitem_E {
+    PROD.ProductUUID
+} 
+  
+  
+ 

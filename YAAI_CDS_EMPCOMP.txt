@@ -1,0 +1,21 @@
+@AbapCatalog.sqlViewName: 'Yaa_av_emped'
+@AbapCatalog.compiler.compareFilter: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'Employee skill details'
+
+define view Yaai_Emoployee_Ed as select from yaa_employee_ed as _emped {
+   key _emped.empid, 
+        @UI.lineItem:  {position : 10}
+        @EndUserText.label: 'Skill Id'
+   key _emped.skillid, 
+        @UI.lineItem:  {position : 20}
+        @EndUserText.label: 'Skill Name'
+       _emped.skillname, 
+        @UI.lineItem:  {position : 30}
+        @EndUserText.label: 'Skill Experience'
+       _emped.skillexp    
+} 
+  
+  
+  
+ 
