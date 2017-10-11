@@ -1,0 +1,43 @@
+@AbapCatalog.sqlViewName: 'zvmicrochart'
+@AbapCatalog.compiler.compareFilter: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'sales manager'
+@UI.chart.chartType:#DONUT
+@UI.chart.dimensions:'region_desc'
+@UI.chart.measures:  'Actual_sales' 
+@UI.chart.measureAttributes.measure: 'Actual_sales'
+@UI.chart.measureAttributes.role: #AXIS_1
+@UI.chart.measureAttributes.asDataPoint: true
+
+define view Zv_Microchart as select distinct from zdt_sls_assgnmnt as ml
+left outer join Zv_Sm_Ml2 as ml2 on ml2.regkey = ml.regkey
+left outer join zdt_reg as reg on reg.regkey = ml.regkey
+left outer join zdt_loc as loc on loc.lockey = reg.lockey
+{ 
+   key  ml.regkey,
+    reg.rdes as region_desc,
+   loc.locationtext,
+   @UI.dataPoint.criticality: 'Actual_sales'
+    ml2.Actual_sales,
+    ml2.sales_target 
+    
+}  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 

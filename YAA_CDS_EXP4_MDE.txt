@@ -1,0 +1,10 @@
+@Metadata.layer: #PARTNER
+@EndUserText.label: 'Demo of MDE'
+@UI.headerInfo:{
+    typeName: 'Airlines MDE',
+    typeNamePlural: 'Airlines Information MDE'
+}
+annotate view yaa_cds_exp4 with {
+    @EndUserText.label: 'Airlinecode MDE'
+    carrid;
+}

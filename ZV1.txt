@@ -1,0 +1,154 @@
+@AbapCatalog.sqlViewName: 'zvv1'
+@AbapCatalog.compiler.compareFilter: true
+@AccessControl.authorizationCheck: #CHECK
+@EndUserText.label: 'demo'
+@UI.headerInfo : {
+title.value: 'fname',
+description.value: 'lname'}
+@UI.chart : [{
+qualifier: 'chart1',
+chartType: #DONUT,
+title: 'Donut Chart Sample',
+measures:  [ 'actual' ],
+dimensions:  [ 'fname' ],
+dimensionAttributes:{dimension: 'fname',role: #SERIES},
+measureAttributes:{measure: 'actual',role: #AXIS_1}
+}]
+define view Zv1 as select from zvcustom1 as cust1 
+association[0..*] to Zv_Demo2 as _demo2 on _demo2.empid=cust1.empid{ 
+    @UI.lineItem : {
+    position: '1',
+    label: 'Emp Number',
+    qualifier: 'qualifier1'}
+    @UI.selectionField:{
+    position: '1'
+    }
+    @UI.identification:{
+    position: '1'
+    }
+    @UI.fieldGroup : {
+   groupLabel: 'Group 1',
+   qualifier:'group1'
+   }
+    @EndUserText.label: 'Employee Number'
+   key cust1.empid, 
+   @UI.lineItem : {
+    position: '2',
+    label: 'First Name',
+    qualifier: 'qualifier1'}
+    @UI.selectionField:{
+    position: '2'
+    }
+    @UI.identification:{
+    position: '2'
+    }
+    @UI.fieldGroup : {
+   groupLabel: 'Group 2',
+   qualifier: 'group2',
+   label: 'First Name'
+   }
+     @EndUserText.label: 'First Name'
+   cust1.fname, 
+   @UI.lineItem : {
+    position: '3',
+    importance: '1',
+    label: 'Last Name',
+    qualifier: 'qualifier1'}
+    @UI.selectionField:{
+    position: '3'
+    }
+    @UI.identification:{
+    position: '3'
+    }
+    @UI.fieldGroup : {
+   groupLabel: 'Group 2',
+   qualifier: 'group2',
+   label: 'Last Name'
+   }
+     @EndUserText.label: 'Last Name'
+   cust1.lname,
+   
+   @UI.lineItem : {
+    position: '4',
+    importance: '2',
+    label: 'Last Name',
+    qualifier: 'qualifier1'}
+    @UI.selectionField:{
+    position: '4'
+    }
+    @UI.identification:{
+    position: '4'
+    } 
+     @UI.fieldGroup : {
+   groupLabel: 'Group 2',
+   qualifier: 'group2',
+   label: 'Location'
+   
+   }
+     @EndUserText.label: 'Location'
+   cust1.location,
+    @UI.lineItem : {
+    position: '5',
+    label: 'Nick Name',
+    qualifier: 'qualifier2'}
+   cust1.nickname,
+    @UI.lineItem : {
+    position: '6',
+    label: 'Skill',
+    qualifier: 'qualifier3'}
+   cust1.skill,
+    @UI.lineItem : {
+    position: '7',
+    label: 'Designation',
+    qualifier: 'qualifier2'}
+   cust1.desig,
+   cust1.actual,
+   cust1.target,
+       @UI.lineItem : {
+    position: '8',
+    label: 'Image URL',
+    qualifier: 'qualifier3'}
+   cust1.imgurl,
+_demo2
+} 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 
